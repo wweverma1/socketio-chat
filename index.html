@@ -51,8 +51,8 @@
                             <h4 class="title">Group Chat</h4>
                             <p class="desc" id="status">Wait for your friends to join</p>
                         </div>
-                        <div class="action-items">
-                            ⬇️
+                        <div class="tooltip">ℹ️
+                            <span class="tooltiptext">Developed with ❤️ in 🇮🇳 by <a href="https://wweverma1.github.io/" target="_blank">Aditya Verma</a></span>
                         </div>
                     </div>
                     <div class="chat" id="chat">
@@ -163,6 +163,7 @@
             }
             message.appendChild(messageContent);
             document.getElementById('chat').appendChild(message);
+            scrollToBottom(document.getElementById('chat'));
         });
 
         function removeTypingStatus()
@@ -185,6 +186,10 @@
                     socket.emit('typing status', true);
             }
         };
+
+        const scrollToBottom = (node) => {
+	        node.scrollTop = node.scrollHeight;
+        }
         </script>
     </body>
 </html>

@@ -187,10 +187,42 @@ text-decoration: none;
     object-fit: cover;
 }
 
-.chat-section .chat-head .action-items{
+/* .chat-section .chat-head .action-items{
     color: #919191;
     padding: 10px;
     cursor: pointer;
+} */
+
+.chat-section .chat-head .tooltip {
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+    /* display: inline-block; */
+}
+  
+/* Tooltip text */
+.chat-section .chat-head .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 180px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 6px;
+    top: -5px;
+    right: 105%;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+}
+
+.chat-section .chat-head .tooltip .tooltiptext a {
+    text-decoration: none;
+    color: #fff;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.chat-section .chat-head .tooltip:hover .tooltiptext {
+visibility: visible;
 }
 
 .chat-section .chat{
