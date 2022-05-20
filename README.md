@@ -1,3 +1,3 @@
 # SOCKET.IO CHAT APP
 
-Just playing with socket.io
+Learning how to use socket.io on an express server to create a realtime chat application.
