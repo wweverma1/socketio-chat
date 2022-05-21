@@ -19,35 +19,45 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
 
     socket.on('new user', username => {
-        console.log(`${username} joined`);
-        var uid = Math.floor(Math.random()*90000) + 10000;
-        while(uids.indexOf(uid)!=-1)
-            uid = Math.floor(Math.random()*90000) + 10000;
-        uids.push(uid);
-        users.push({"username":username, "uid":uid});
-        socket.username = username;
-        socket.uid = uid;
-        socket.emit('user uid', socket.uid);
-        io.emit('active user count', uids.length);
-        io.emit('active users', users);
+        if(username)
+        {
+            console.log(`${username} joined`);
+            var uid = Math.floor(Math.random()*90000) + 10000;
+            while(uids.indexOf(uid)!=-1)
+                uid = Math.floor(Math.random()*90000) + 10000;
+            uids.push(uid);
+            users.push({"username":username, "uid":uid});
+            socket.username = username;
+            socket.uid = uid;
+            socket.emit('user uid', socket.uid);
+            io.emit('active user count', uids.length);
+            io.emit('active users', users);
+        }
     });
     
     socket.on('chat message', msg => {
-        io.emit('chat message', msg, socket.username, socket.uid);
+        if(socket.username)
+            io.emit('chat message', msg, socket.username, socket.uid);
     });
 
     socket.on('typing status', typing_status => {
-        if(typing_status == true)
-            io.emit('set typing status', `${socket.username} is typing...`, socket.uid);
+        if(socket.username)
+        {
+            if(typing_status == true)
+                io.emit('set typing status', `${socket.username} is typing...`, socket.uid);
+        }
     });
 
     socket.on('disconnect', () => {
-        console.log(`${socket.username} left`);
-        var index = uids.indexOf(socket.uid);
-        uids.splice(index, 1);
-        users.splice(index, 1);
-        io.emit('active user count', uids.length);
-        io.emit('active users', users);
+        if(socket.username)
+        {
+            console.log(`${socket.username} left`);
+            var index = uids.indexOf(socket.uid);
+            uids.splice(index, 1);
+            users.splice(index, 1);
+            io.emit('active user count', uids.length);
+            io.emit('active users', users);
+        }
     });
 });
 
